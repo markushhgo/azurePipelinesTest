@@ -1,16 +1,20 @@
 
 terraform {
     backend "azurerm" {
-    resource_group_name  = "rgMarkusHallforsPilviakatemia2020"
-    storage_account_name = "markushvmpilviakatemia"
-    container_name       = "terraformgithub"
-    key                  = ""
+        resource_group_name  = "markushpilvistorage"
+        storage_account_name = "storagepilvi"
+        container_name       = "tfstorage"
+        key                  = "tfstate"
     }
 }
 
-resource "azurerm_virtual_network" "vnet" {
-    name                = "mytfnet"
-    address_space       = ["10.0.0.0/16"]
-    location            = "uksouth"
-    resource_group_name = "rgMarkusHallforsPilviakatemia2020"
+provider "azurerm" {
+  version = "~>2.0"
+  features {}
+} 
+
+# Create a resource group
+resource "azurerm_resource_group" "markushResourceGroup" {
+  name     = "markushResourceGroup"
+  location = "West Europe"
 }
